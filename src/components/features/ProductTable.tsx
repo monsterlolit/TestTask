@@ -2,7 +2,10 @@ import React, { useState, useEffect, useCallback } from "react";
 import type { Product } from "../../types/product.types.js";
 import { ProductRow } from "./ProductRow.js";
 import { SortHeader } from "./SortHeader.js";
-import { useProductsStore } from "../../store/products.store.js";
+import {
+    useProductsStore,
+    type SortConfig,
+} from "../../store/products.store.js";
 import "./ProductTable.css";
 
 export interface ProductTableProps {
@@ -17,7 +20,7 @@ export interface ProductTableProps {
 
 /**
  * Таблица продуктов с сортировкой по клику на заголовок
- * Состояние сортировки сохраняется в localStorage
+ * Состояние сортировки сохраняется в localStorage и синхронизируется с store
  */
 export const ProductTable: React.FC<ProductTableProps> = ({
     products,
@@ -28,30 +31,7 @@ export const ProductTable: React.FC<ProductTableProps> = ({
     onDelete,
     loading = false,
 }) => {
-    const { setProducts } = useProductsStore();
-
-    // Инициализация состояния сортировки из localStorage
-    const getInitialSortState = (): {
-        sortField: string | null;
-        sortOrder: "asc" | "desc" | null;
-    } => {
-        try {
-            const stored = localStorage.getItem("products_sort");
-            if (stored && stored !== "undefined") {
-                return JSON.parse(stored);
-            }
-        } catch (error) {
-            console.error("Error loading sort state:", error);
-        }
-        return { sortField: null, sortOrder: null };
-    };
-
-    const [sortField, setSortField] = useState<string | null>(
-        getInitialSortState().sortField,
-    );
-    const [sortOrder, setSortOrder] = useState<"asc" | "desc" | null>(
-        getInitialSortState().sortOrder,
-    );
+    const { setProducts, sortBy, setSortBy } = useProductsStore();
 
     const allSelected =
         products.length > 0 && selectedIds.length === products.length;
@@ -90,58 +70,62 @@ export const ProductTable: React.FC<ProductTableProps> = ({
     );
 
     /**
-     * Обработчик сортировки
+     * Обработчик сортировки - использует store state
      * Клик по тому же заголовку: asc → desc → сброс
      */
     const handleSort = useCallback(
         (field: string) => {
-            let newOrder: "asc" | "desc" = "asc";
+            // Определяем новый порядок на основе текущего состояния store
+            let newOrder: "asc" | "desc" | null = "asc";
 
-            // Если кликнули на тот же заголовок - меняем порядок
-            if (sortField === field) {
-                if (sortOrder === "asc") {
-                    newOrder = "desc";
-                } else if (sortOrder === "desc") {
-                    // Если уже desc - сбрасываем сортировку
-                    setSortField(null);
-                    setSortOrder(null);
-                    localStorage.removeItem("products_sort");
-                    return;
-                }
+            if (sortBy.field === field && sortBy.order === "asc") {
+                newOrder = "desc";
+            } else if (sortBy.field === field && sortBy.order === "desc") {
+                // Сброс сортировки
+                setSortBy({ field: "", order: "asc" });
+                localStorage.removeItem("products_sort");
+                return;
             }
 
-            setSortField(field);
-            setSortOrder(newOrder);
+            // Обновляем store и localStorage
+            const newSortConfig: SortConfig = { field, order: newOrder };
+            setSortBy(newSortConfig);
+            localStorage.setItem(
+                "products_sort",
+                JSON.stringify(newSortConfig),
+            );
+
+            // Применяем сортировку к текущим данным
             applySort(field, newOrder);
         },
-        [sortField, sortOrder, applySort],
+        [sortBy, setSortBy, applySort],
     );
 
     /**
      * Сохранение состояния сортировки в localStorage
      */
     useEffect(() => {
-        if (sortField && sortOrder) {
+        if (sortBy.field && sortBy.order) {
             localStorage.setItem(
                 "products_sort",
                 JSON.stringify({
-                    sortField,
-                    sortOrder,
+                    sortField: sortBy.field,
+                    sortOrder: sortBy.order,
                 }),
             );
         } else {
             localStorage.removeItem("products_sort");
         }
-    }, [sortField, sortOrder]);
+    }, [sortBy]);
 
     /**
      * Применяем сортировку при изменении продуктов
      */
     useEffect(() => {
-        if (sortField && sortOrder && products.length > 0) {
-            applySort(sortField, sortOrder);
+        if (sortBy.field && sortBy.order && products.length > 0) {
+            applySort(sortBy.field, sortBy.order);
         }
-    }, [products.length]); // eslint-disable-line react-hooks/exhaustive-deps
+    }, [products.length, sortBy.field, sortBy.order]); // eslint-disable-line react-hooks/exhaustive-deps
 
     if (loading) {
         return (
@@ -177,8 +161,8 @@ export const ProductTable: React.FC<ProductTableProps> = ({
                             <SortHeader
                                 field="title"
                                 label="Наименование"
-                                currentSortField={sortField}
-                                sortOrder={sortOrder}
+                                currentSortField={sortBy.field}
+                                sortOrder={sortBy.order}
                                 onSort={handleSort}
                                 width={210}
                             />
@@ -190,8 +174,8 @@ export const ProductTable: React.FC<ProductTableProps> = ({
                             <SortHeader
                                 field="brand"
                                 label="Вендор"
-                                currentSortField={sortField}
-                                sortOrder={sortOrder}
+                                currentSortField={sortBy.field}
+                                sortOrder={sortBy.order}
                                 onSort={handleSort}
                                 textAlign="center"
                             />
@@ -203,8 +187,8 @@ export const ProductTable: React.FC<ProductTableProps> = ({
                             <SortHeader
                                 field="sku"
                                 label="Артикул"
-                                currentSortField={sortField}
-                                sortOrder={sortOrder}
+                                currentSortField={sortBy.field}
+                                sortOrder={sortBy.order}
                                 onSort={handleSort}
                                 textAlign="center"
                             />
@@ -216,8 +200,8 @@ export const ProductTable: React.FC<ProductTableProps> = ({
                             <SortHeader
                                 field="rating"
                                 label="Оценка"
-                                currentSortField={sortField}
-                                sortOrder={sortOrder}
+                                currentSortField={sortBy.field}
+                                sortOrder={sortBy.order}
                                 onSort={handleSort}
                                 textAlign="center"
                             />
@@ -229,8 +213,8 @@ export const ProductTable: React.FC<ProductTableProps> = ({
                             <SortHeader
                                 field="price"
                                 label="Цена, ₽"
-                                currentSortField={sortField}
-                                sortOrder={sortOrder}
+                                currentSortField={sortBy.field}
+                                sortOrder={sortBy.order}
                                 onSort={handleSort}
                                 textAlign="center"
                             />

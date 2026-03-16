@@ -11,6 +11,32 @@ export interface SortConfig {
 }
 
 /**
+ * Чтение сохранённой сортировки из localStorage
+ */
+const getInitialSort = (): SortConfig => {
+    if (typeof window === "undefined") {
+        return { field: "title", order: "asc" };
+    }
+    try {
+        const stored = localStorage.getItem("products_sort");
+        if (stored && stored !== "undefined" && stored !== "null") {
+            const parsed = JSON.parse(stored);
+            if (parsed.sortField && parsed.sortOrder) {
+                return {
+                    field: parsed.sortField,
+                    order: parsed.sortOrder,
+                };
+            }
+        }
+    } catch (error) {
+        console.error("Error loading sort state:", error);
+    }
+    return { field: "title", order: "asc" };
+};
+
+const initialSort = getInitialSort();
+
+/**
  * Состояние списка продуктов
  */
 interface ProductsState {
@@ -56,7 +82,7 @@ export const useProductsStore = create<ProductsStore>((set, get) => ({
     products: [],
     loading: false,
     error: null,
-    sortBy: { field: "title", order: "asc" },
+    sortBy: initialSort, // ← используем сохранённое состояние
     total: 0,
     searchQuery: "",
 
@@ -172,8 +198,14 @@ export const useProductsStore = create<ProductsStore>((set, get) => ({
 
     /**
      * Установка сортировки с немедленной пересортировкой текущего списка
+     * и сохранением в localStorage
      */
     setSortBy: (sortBy: SortConfig): void => {
+        // Сохраняем в localStorage
+        if (typeof window !== "undefined") {
+            localStorage.setItem("products_sort", JSON.stringify(sortBy));
+        }
+
         set({ sortBy });
 
         const { products } = get();

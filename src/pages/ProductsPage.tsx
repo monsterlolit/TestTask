@@ -126,6 +126,8 @@ export const ProductsPage: React.FC = () => {
         navigate("/login");
     };
 
+    const { addProduct } = useProductsStore();
+
     const handleAddProduct = (data: {
         title: string;
         price: string;
@@ -136,6 +138,23 @@ export const ProductsPage: React.FC = () => {
         rating: string;
     }) => {
         console.log("New product:", data);
+
+        // Создаём новый продукт с временным ID
+        const newProduct: Product = {
+            id: Date.now(), // временный уникальный ID
+            title: data.title,
+            price: parseFloat(data.price) || 0,
+            brand: data.brand,
+            sku: data.sku,
+            category: data.category || "",
+            rating: parseFloat(data.rating) || 0,
+            image: "", // пустое изображение по умолчанию
+        };
+
+        // Добавляем в store
+        addProduct(newProduct);
+
+        // Закрываем модалку и показываем уведомление
         setIsAddModalOpen(false);
         showToast("Товар добавлен", "success");
     };
