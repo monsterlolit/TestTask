@@ -1,0 +1,247 @@
+.product-row {
+    border-bottom: 1px solid #ececeb; /* borderMuted */
+    transition: background-color 0.2s ease;
+    cursor: pointer;
+    height: 71px; /* tableRowHeight из макета */
+}
+
+.product-row:hover {
+    background-color: #f9f9f9;
+}
+
+/* Выбранная строка - синяя полоса слева */
+.product-row--selected {
+    background-color: #f5f7fb;
+    border-left: 3px solid #3c538e; /* selectedRow */
+}
+
+.product-row--selected .product-row-checkbox .checkbox-mark {
+    background-color: #3c538e;
+    border-color: #3c538e;
+}
+
+.product-row--selected .product-row-checkbox .checkbox-mark::after {
+    transform: rotate(45deg) scale(1);
+}
+
+.product-row-cell {
+    padding: 16px 18px;
+    vertical-align: middle;
+    font-size: 16px;
+    color: #222222; /* textSecondary */
+    font-family: "Open Sans", sans-serif;
+}
+
+.product-row-checkbox {
+    width: 50px;
+    text-align: center;
+}
+
+.product-info {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+/* Контейнер изображения с placeholder */
+.product-image-container {
+    width: 48px;
+    height: 48px;
+    border-radius: 8px;
+    background-color: #c4c4c4; /* placeholder color */
+    overflow: hidden;
+    flex-shrink: 0;
+    position: relative;
+}
+
+.product-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.product-details {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+    flex: 1;
+}
+
+.product-name {
+    font-size: 16px;
+    font-weight: 500;
+    color: #222222;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px;
+}
+
+.product-category {
+    font-size: 14px;
+    color: #b2b3b9; /* textMuted */
+}
+
+.product-row-vendor {
+    font-family: "Open Sans", sans-serif;
+    font-size: 16px;
+    color: #222222;
+    width: 125px; /* из макета */
+}
+
+.product-row-sku {
+    font-family: "Roboto Mono", monospace;
+    font-size: 14px;
+    color: #666666;
+    width: 160px; /* из макета */
+}
+
+.product-row-rating {
+    width: 125px; /* из макета */
+}
+
+.product-rating-text {
+    text-align: center;
+    font-size: 16px;
+    font-family: "Open Sans", sans-serif;
+    font-weight: 400;
+}
+
+.product-rating-text span {
+    color: #222222;
+}
+
+.product-rating {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 500;
+}
+
+.star-icon {
+    font-size: 18px;
+}
+
+.rating-value {
+    font-size: 16px;
+}
+
+.product-row-price {
+    font-family: "Roboto Mono", monospace;
+    font-size: 16px;
+    font-weight: 500;
+    width: 160px; /* из макета */
+}
+
+.price-rubles {
+    color: #222222;
+}
+
+.price-kopecks {
+    color: #999999;
+    font-size: 14px;
+}
+
+.price-currency {
+    color: #222222;
+    margin-left: 2px;
+}
+
+.product-row-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100px;
+}
+
+/* Круглые кнопки действий - серые по ТЗ */
+.btn-action {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1px solid #e2e2e2;
+    background-color: transparent;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    padding: 0;
+}
+
+.btn-action--gray {
+    border-color: #e2e2e2;
+    background-color: transparent;
+}
+
+.btn-action--gray:hover {
+    background-color: #f5f5f5;
+    border-color: #b2b3b9;
+}
+
+.btn-action--gray:active {
+    transform: scale(0.95);
+}
+
+/* Checkbox styles */
+.checkbox-wrapper {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    position: relative;
+}
+
+.checkbox-input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.checkbox-mark {
+    position: relative;
+    width: 22px; /* checkboxSize из макета */
+    height: 22px;
+    min-width: 22px;
+    border: 2px solid #b2b3b9;
+    border-radius: 6px;
+    background-color: #ffffff;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.checkbox-mark::after {
+    content: "";
+    width: 5px;
+    height: 10px;
+    border: solid #ffffff;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg) scale(0);
+    transition: transform 0.2s ease;
+}
+
+.checkbox-input:checked + .checkbox-mark {
+    background-color: #242edb;
+    border-color: #242edb;
+}
+
+.checkbox-input:checked + .checkbox-mark::after {
+    transform: rotate(45deg) scale(1);
+}
+
+/* Адаптивность */
+@media (max-width: 1024px) {
+    .product-row {
+        height: auto;
+        min-height: 71px;
+    }
+
+    .product-name {
+        max-width: 150px;
+    }
+}

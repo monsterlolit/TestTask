@@ -1,0 +1,50 @@
+.sort-header {
+  text-align: left;
+  font-size: 14px;
+  font-weight: 500;
+  color: #999999;
+  padding: 12px 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  user-select: none;
+  transition: color 0.2s ease;
+  position: relative;
+}
+
+.sort-header:hover {
+  color: #242EDB;
+}
+
+.sort-header--active {
+  color: #242EDB;
+}
+
+.sort-header-content {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sort-header-label {
+  flex: 1;
+}
+
+.sort-header-icon {
+  font-size: 14px;
+  color: #242EDB;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+}
+
+.sort-header:not(.sort-header--active) .sort-header-icon {
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.sort-header:hover .sort-header-icon {
+  opacity: 1;
+}

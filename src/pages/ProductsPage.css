@@ -1,0 +1,255 @@
+.products-page {
+    min-height: 100vh;
+    background-color: #f6f6f6; /* backgroundLight */
+}
+
+/* Header - верхняя часть 105px */
+.products-header {
+    height: 105px; /* headerHeight из макета */
+    padding: 0 30px;
+    background-color: #ffffff;
+    border-bottom: 1px solid #e2e2e2;
+    display: flex;
+    align-items: center;
+}
+
+.products-header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
+    gap: 30px;
+}
+
+/* Заголовок слева */
+.products-title {
+    font-family: "Cairo", sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: #202020;
+    margin: 0;
+    white-space: nowrap;
+}
+
+/* SearchBar по центру */
+.products-header-search {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    max-width: 1023px;
+}
+
+/* Кнопка выхода справа */
+.logout-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border: 1px solid #e2e2e2;
+    border-radius: 12px;
+    background-color: #ffffff;
+    color: #999999;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.logout-btn:hover {
+    border-color: #f11010;
+    color: #f11010;
+    background-color: #fff5f5;
+}
+
+/* Вторая строка: "Все позиции" + кнопки */
+.products-subheader {
+    padding: 20px 30px;
+    background-color: #f6f6f6;
+}
+
+.products-subheader-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1440px;
+    margin: 0 auto;
+    gap: 30px;
+}
+
+.products-subheader-title {
+    font-family: "Cairo", sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: #333333;
+    margin: 0;
+}
+
+.products-subheader-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Кнопка Обновить */
+.btn-refresh {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    padding: 10px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    border: 1px solid #ececeb;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-refresh:hover {
+    background-color: #f5f5f5;
+    border-color: #b2b3b9;
+}
+
+/* Кнопка Добавить - синяя */
+.btn-add {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    min-height: 42px;
+    padding: 10px 20px;
+    background-color: #242edb; /* primary */
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: #ebf3ea; /* success - почти белый */
+    font-family: "Cairo", sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.btn-add:hover {
+    background-color: #1e26c4;
+}
+
+.btn-add:active {
+    transform: scale(0.98);
+}
+
+.products-main {
+    padding: 0 30px 30px 30px;
+    max-width: 1440px;
+    margin: 0 auto;
+}
+
+.products-content {
+    background-color: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.products-error {
+    padding: 16px;
+    background-color: #fff5f5;
+    border: 1px solid #fed7d7;
+    border-radius: 12px;
+    color: #f11010;
+    font-size: 14px;
+    margin: 20px;
+    text-align: center;
+}
+
+.products-empty {
+    padding: 60px 20px;
+    text-align: center;
+    color: #999999;
+    font-size: 16px;
+}
+
+.products-search-info {
+    padding: 16px;
+    text-align: center;
+    color: #999999;
+    font-size: 14px;
+}
+
+/* Адаптивность */
+@media (max-width: 1200px) {
+    .products-header-content {
+        gap: 20px;
+    }
+
+    .products-header-search {
+        max-width: 600px;
+    }
+}
+
+@media (max-width: 900px) {
+    .products-header {
+        height: auto;
+        padding: 16px 20px;
+    }
+
+    .products-header-content {
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .products-header-search {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .products-subheader {
+        padding: 16px 20px;
+    }
+
+    .products-subheader-content {
+        flex-direction: column;
+        gap: 16px;
+        align-items: flex-start;
+    }
+
+    .products-subheader-actions {
+        width: 100%;
+        justify-content: flex-end;
+    }
+}
+
+@media (max-width: 480px) {
+    .btn-add span {
+        display: none;
+    }
+
+    .btn-add {
+        padding: 10px 16px;
+    }
+
+    .products-main {
+        padding: 0 16px 16px 16px;
+    }
+}
+
+/* Анимация спиннера */
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Анимация toast */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}

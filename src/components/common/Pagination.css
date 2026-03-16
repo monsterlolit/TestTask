@@ -1,0 +1,101 @@
+.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 30px;
+    gap: 20px;
+    background-color: #ffffff;
+    border-top: 1px solid #ececeb;
+}
+
+/* Текст "Показано 1-20 из 120" */
+.pagination-info {
+    font-size: 14px;
+    color: #999999;
+    font-family: "Inter", sans-serif;
+    white-space: nowrap;
+}
+
+/* Кнопки страниц */
+.pagination-controls {
+    display: flex;
+    align-items: center;
+    gap: 16px; /* gap из макета */
+}
+
+.pagination-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 30px;
+    height: 30px;
+    padding: 0 8px;
+    border: 1px solid #ececeb; /* borderMuted */
+    border-radius: 4px; /* radiusSm */
+    background-color: #ffffff;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: inherit;
+    color: #222222;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.pagination-btn:hover:not(:disabled) {
+    border-color: #242edb;
+    color: #242edb;
+}
+
+/* Active кнопка - #797FEA фон */
+.pagination-btn--active {
+    background-color: #797fea; /* primaryLight */
+    border-color: #797fea;
+    color: #ffffff;
+    box-shadow: 0 2px 8px rgba(121, 127, 234, 0.3);
+}
+
+.pagination-btn--active:hover {
+    background-color: #6a70d9;
+    border-color: #6a70d9;
+}
+
+.pagination-btn--arrow {
+    padding: 0;
+    width: 30px;
+}
+
+.pagination-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.pagination-btn:disabled:hover {
+    border-color: #ececeb;
+    color: #222222;
+}
+
+.pagination-dots {
+    font-size: 14px;
+    color: #999999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+}
+
+/* Адаптивность */
+@media (max-width: 600px) {
+    .pagination {
+        flex-direction: column;
+        align-items: center;
+        padding: 16px;
+    }
+
+    .pagination-info {
+        order: 2;
+    }
+
+    .pagination-controls {
+        order: 1;
+    }
+}

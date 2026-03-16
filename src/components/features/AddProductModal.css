@@ -1,0 +1,83 @@
+.add-product-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-row {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-row--double {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.form-label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.label-text {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333333;
+}
+
+.form-textarea {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid #EDEDED;
+  border-radius: 12px;
+  font-size: 16px;
+  font-family: inherit;
+  color: #333333;
+  background-color: #FFFFFF;
+  resize: vertical;
+  min-height: 100px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  box-sizing: border-box;
+}
+
+.form-textarea:focus {
+  outline: none;
+  border-color: #242EDB;
+  box-shadow: 0 0 0 3px rgba(36, 46, 219, 0.1);
+}
+
+.form-textarea::placeholder {
+  color: #999999;
+}
+
+.form-textarea:disabled {
+  background-color: #F5F5F5;
+  cursor: not-allowed;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding-top: 8px;
+  border-top: 1px solid #E2E2E2;
+  margin-top: 8px;
+}
+
+@media (max-width: 600px) {
+  .form-row--double {
+    grid-template-columns: 1fr;
+  }
+
+  .form-actions {
+    flex-direction: column;
+  }
+
+  .form-actions .btn {
+    width: 100%;
+  }
+}

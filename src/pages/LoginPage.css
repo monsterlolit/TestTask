@@ -1,0 +1,156 @@
+.login-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f9f9f9; /* backgroundSearch из макета */
+    padding: 20px;
+}
+
+.login-card {
+    width: 527px; /* ширина из макета */
+    max-width: 100%;
+    background-color: #ffffff;
+    border-radius: 40px;
+    padding: 6px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+}
+
+.login-card form {
+    background-color: #ffffff;
+    border-radius: 34px;
+    padding: 48px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.login-icon-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 8px;
+}
+
+.login-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 100px;
+    background-color: #242edb; /* primary */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+}
+
+.login-title {
+    font-family: "Cairo", sans-serif;
+    font-size: 40px; /* textXxl */
+    font-weight: 600; /* weightSemiBold */
+    line-height: 44px;
+    color: #202020;
+    text-align: center;
+    margin: 0 0 8px 0;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.password-input-wrapper {
+    position: relative;
+}
+
+.password-toggle {
+    position: absolute;
+    right: 16px;
+    top: 58%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #999999;
+    transition: color 0.2s ease;
+    z-index: 1;
+}
+
+.password-toggle:hover:not(:disabled) {
+    color: #242edb;
+}
+
+.password-toggle:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.login-options {
+    display: flex;
+    align-items: center;
+    margin-top: -8px;
+}
+
+.login-error {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 16px;
+    background-color: #fff5f5;
+    border: 1px solid #fed7d7;
+    border-radius: 12px;
+    color: #f11010;
+    font-size: 14px;
+}
+
+.login-error-icon {
+    font-size: 18px;
+}
+
+.login-footer {
+    text-align: center;
+    font-size: 16px;
+    color: #999999;
+    margin: 8px 0 0 0;
+}
+
+.login-link {
+    color: #242edb;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.login-link:hover {
+    color: #1e26c4;
+    text-decoration: underline;
+}
+
+/* Адаптивность для мобильных */
+@media (max-width: 600px) {
+    .login-card {
+        width: 100%;
+        border-radius: 24px;
+    }
+
+    .login-card form {
+        padding: 32px 24px;
+        border-radius: 18px;
+    }
+
+    .login-title {
+        font-size: 32px;
+        line-height: 36px;
+    }
+
+    .login-icon {
+        width: 44px;
+        height: 44px;
+    }
+
+    .login-options {
+        justify-content: center;
+    }
+}

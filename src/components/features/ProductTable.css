@@ -1,0 +1,161 @@
+.product-table-container {
+    width: 100%;
+    background-color: #ffffff;
+    border-radius: 12px;
+}
+
+.product-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+.product-table-header-row {
+    border-bottom: 1px solid #e2e2e2;
+}
+
+.product-table-header {
+    text-align: left;
+    font-size: 14px;
+    font-weight: 500;
+    color: #b2b3b9; /* textMuted */
+    padding: 12px 18px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-family: "Cairo", sans-serif;
+}
+
+.product-table-row {
+    border-bottom: 1px solid #ececeb;
+    transition: background-color 0.2s ease;
+    height: 71px; /* tableRowHeight */
+}
+
+.product-table-row:hover {
+    background-color: #f9f9f9;
+}
+
+/* Выбранная строка - синяя полоса слева */
+.product-table-row--selected {
+    background-color: #f5f7fb;
+    border-left: 3px solid #3c538e;
+}
+
+.product-table-row--selected .product-table-checkbox-col .checkbox-mark {
+    background-color: #3c538e;
+    border-color: #3c538e;
+}
+
+.product-table-row--selected .product-table-checkbox-col .checkbox-mark::after {
+    transform: rotate(45deg) scale(1);
+}
+
+.product-table-cell {
+    padding: 16px 18px;
+    vertical-align: middle;
+    font-size: 16px;
+    color: #222222;
+}
+
+.product-table-checkbox-col {
+    width: 50px;
+    text-align: center;
+}
+
+.product-table-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    gap: 16px;
+    color: #999999;
+}
+
+.spinner {
+    width: 32px;
+    height: 32px;
+    border: 3px solid #f0f0f0;
+    border-top-color: #242edb;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.product-table-empty {
+    text-align: center;
+    padding: 60px 20px;
+    color: #999999;
+    font-size: 16px;
+}
+
+/* Checkbox styles */
+.checkbox-wrapper {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    position: relative;
+}
+
+.checkbox-input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.checkbox-mark {
+    position: relative;
+    width: 22px;
+    height: 22px;
+    min-width: 22px;
+    border: 2px solid #b2b3b9;
+    border-radius: 6px;
+    background-color: #ffffff;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.checkbox-mark::after {
+    content: "";
+    width: 5px;
+    height: 10px;
+    border: solid #ffffff;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg) scale(0);
+    transition: transform 0.2s ease;
+}
+
+.checkbox-input:checked + .checkbox-mark {
+    background-color: #242edb;
+    border-color: #242edb;
+}
+
+.checkbox-input:checked + .checkbox-mark::after {
+    transform: rotate(45deg) scale(1);
+}
+
+/* Адаптивность */
+@media (max-width: 1024px) {
+    .product-table-container {
+        overflow-x: auto;
+    }
+
+    .product-table {
+        min-width: 900px;
+    }
+}
+
+@media (max-width: 768px) {
+    .product-table-title {
+        font-size: 18px;
+    }
+}
